@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Scientific Calculator</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+     <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <style>
+        
+        
+        body{
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;         
+            min-height: 100vh;   
+            user-select: none;
+            background: #ecf0f3;
+        }
+        .containers{
+            margin-left: 1.8em;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 13px 13px 20px #cbced1,
+            -13px -13px 20px #ffffff;
+        }
+        .content {
+        width: 100%;
+        margin-top: 1.7em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .row button{
+        width: 80px;
+        height: 40px;
+        font-size: 16px;
+        border: none;
+        outline: none;
+        margin: 5px;
+        border-radius: 4px;
+        transition: .1s;
+        box-shadow: 5px 5px 8px #00000020,
+            -5px -5px 8px #ffff;
+    }
+    .row button:hover{
+        box-shadow: inset 5px 5px 8px rgba(16, 16, 16, .1),
+            inset -5px -5px 8px #fff;
+        background: #fff;
+    }
+    .display #screen {
+        margin-bottom: .4em;
+        width: auto;
+        height: 70px;
+        font-size: 35.8px;
+        text-align: right;
+        padding-right: .5em;
+        background: #ecf0f3;
+        border-radius: 6px;
+        box-shadow: inset 8px 8px 8px #cbced1,
+            inset -8px -8px 8px #ffffff;
+    }
+
+    #eval {
+        background: #33ccff;
+        color: #fff;
+        box-shadow: inset 5px 5px 8px #66d9ff,
+            inset -5px -5px 8px #00ace6;
+    }
+    #eval:hover{
+        box-shadow: inset 5px 5px 8px #00ace6,
+            inset -5px -5px 8px #00ace6;
+    }
+    #allClear{
+        background: #33cc33;
+        color: #fff;
+    }
+    #allClear:hover{
+        box-shadow: inset 5px 5px 8px #2eb82e,
+            inset -5px -5px 8px #33cc33;
+    }
+    #backSpace{
+        background: #ff3399;
+        color: #fff;
+    }
+    #backSpace:hover{
+        box-shadow: inset 5px 5px 8px #e60073,
+            inset -5px -5px 8px #ff3399;
+    }
+ 
+
+
+    </style>
+
+
+      <section class="containers">
+        <div class="display">
+            <input type="text" placeholder="0" id="screen">
+        </div>
+
+        <div class="btns">
+            <div class="row">
+                <button onclick="keySound()" class="btn numOp">!</button>
+                <button onclick="keySound()" id="combination" class="btn numOp">nCr</button>
+                <button onclick="cubic();keySound()" id="cube" class="btn">x <sup>3</sup></button>
+                <button onclick="square();keySound()" id="square" class="btn">x <sup>2</sup></button>
+                <button onclick="cubicRoot();keySound()" id="cubeRoot" class="btn"><sub>3</sub>√</button>
+            </div>
+            <div class="row">
+                <button onclick="sqrRoot();keySound()" id="squareRoot" class="btn"><sub>2</sub>√</button>
+                <button onclick="keySound()" id="power" class="btn numOp">^</button>
+                <button onclick="log();keySound()" id="log" class="btn">log <sub>e</sub></button>
+                <button onclick="keySound()" id="permutation" class="btn numOp">nPr</button>
+                <button onclick="keySound()" id="negSign" class="btn numOp">(-)</button>
+            </div>
+            <div class="row">
+                <button onclick="keySound()" class="btn numOp">(</button>
+                <button onclick="keySound()" class="btn numOp">)</button>
+                <button onclick="sin();keySound()" id="sinFunction" class="btn ">sin</button>
+                <button onclick="cos();keySound()" id="cosFunction" class="btn">cos</button>
+                <button onclick="tan();keySound()" id="tanFunction" class="btn">tan</button>
+            </div>
+            <div class="row">
+                <button onclick="sinInverse();keySound()" id="sinInverse" class="btn">sin<sup>-1</sup></button>
+                <button onclick="cosInverse();keySound()" id="cosInverse" class="btn">cos<sup>-1</sup></button>
+                <button onclick="tanInverse();keySound()" id="tanInverse" class="btn">tan<sup>-1</sup></button>
+                <button onclick="del();keySound()" id="backSpace" class="btn">DEL</button>
+                <button onclick="screen.value ='';keySound()" id="allClear" class="btn">AC</button>
+            </div>
+            <div class="row">
+                <button onclick="keySound()" class="btn numOp">7</button>
+                <button onclick="keySound()" class="btn numOp">8</button>
+                <button onclick="keySound()" class="btn numOp">9</button>
+                <button onclick="keySound()" class="btn numOp">*</button>
+                <button onclick="keySound()" class="btn numOp">/</button>
+            </div>
+            <div class="row">
+                <button onclick="keySound()" class="btn numOp">4</button>
+                <button onclick="keySound()" class="btn numOp">5</button>
+                <button onclick="keySound()" class="btn numOp">6</button>
+                <button onclick="keySound()" class="btn numOp">+</button>
+                <button onclick="keySound()" class="btn numOp">-</button>
+            </div>
+            <div class="row">
+                <button onclick="keySound()" class="btn numOp">1</button>
+                <button onclick="keySound()" class="btn numOp">2</button>
+                <button onclick="keySound()" class="btn numOp">3</button>
+                <button onclick="keySound()" class="btn numOp">.</button>
+                <button onclick="resultEquals();equalSound()" id="eval" class="btn">=</button>
+            </div>
+            <div class="row">
+                <button onclick="keySound()" class="btn numOp">0</button>
+                <button onclick="Euler();keySound()" id="eNum" class="btn">e</button>
+                <button onclick="rec();keySound()" id="reciprocal" class="btn">1/x</button>
+                <button onclick="pi();keySound()" id="piValue" class="btn">π</button>
+                <button onclick="percentValue();keySound()" id="percentValue" class="btn">%</button>
+            </div>
+        </div>
+      </section>
+   
+<script>
+    var screen = document.querySelector('#screen');
+    var btnText = document.querySelectorAll('.numOp');
+    
+
+    for(item of btnText){
+        item.addEventListener('click', (e) => {
+            btnText = e.target.innerText;
+            if(btnText== '^')
+            {
+                btnText = '**';
+            }
+            if(btnText == '(-)'){
+                btnText = '-';
+            }
+            if(btnText=='nCr'){
+                btnText = 'C';
+            }
+            if(btnText=='nPr'){
+                btnText = 'P';
+            }
+            screen.value += btnText;
+        });
+    }
+
+// function for voice notes
+let audio1 = new Audio('button.mp3');
+let audio2 = new Audio('equals.mp3');
+
+function keySound(){
+    audio1.play();
+}
+function equalSound(){
+    audio2.play();
+}
+// function declaration for  individual functioning keys 
+function del(){
+    screen.value = screen.value.substr(0, screen.value.length-1)
+}
+
+function fact(num)
+ { if (num === 0 || num === 1) return 1; 
+    for (var i = num - 1; i >= 1; i--)
+     { num *= i; } 
+     return num; }
+
+function cubic(){
+    screen.value = Math.pow(screen.value,3);
+}
+
+function square(){
+    screen.value = Math.pow(screen.value,2);
+}
+
+function cubicRoot(){
+    screen.value = Math.cbrt(screen.value);
+}
+function sqrRoot(){
+    screen.value = Math.sqrt(screen.value);
+}
+
+function log(){
+    screen.value = Math.log(screen.value);
+}
+function sin(){
+    screen.value = Math.sin(screen.value)
+}
+function sinInverse(){
+    screen.value = Math.asin(screen.value)
+}
+function cos(){
+    screen.value = Math.cos(screen.value)
+}
+function cosInverse(){
+    screen.value = Math.acos(screen.value)
+}
+function tan(){
+    screen.value = Math.tan(screen.value)
+}
+function tanInverse(){
+    screen.value = Math.atan(screen.value)
+}
+function Euler(){
+    screen.value += 2.71828182;
+}
+
+function rec(){
+    screen.value = 1/(screen.value);
+}
+function pi(){
+    screen.value += 22/7;
+}
+function percentValue(){
+    screen.value = screen.value/100;
+}
+// eval function declaration
+
+function resultEquals()
+    {
+       
+            // code for factorial key 
+
+        if(btnText.includes('!')){
+            let factNum = screen.value.substr(0,screen.value.length - 1);
+            return screen.value = fact(factNum);
+           
+        }
+
+        // code for nCr key 
+
+       if(screen.value.includes('C')){
+            let n,r,result;
+            n= screen.value[0];
+            r= screen.value[2];
+            result = fact(n)/((fact(r))*(fact(n-r)));
+            return screen.value = result;
+            
+        }
+
+         // code for nPr key 
+
+       if(screen.value.includes('P')){
+            let n,r,result;
+            n= screen.value[0];
+            r= screen.value[2];
+            result = fact(n)/fact(n-r);
+            return screen.value = result;
+            
+        }
+    //    code for basic arithmetic operations
+
+    if(screen.value.includes('+')){
+        return screen.value = eval(screen.value);
+    }
+    if(screen.value.includes('-')){
+        return screen.value = eval(screen.value);
+    }
+    if(screen.value.includes('/')){
+        return screen.value = eval(screen.value);
+    }
+    if(screen.value.includes('*')){
+        return screen.value = eval(screen.value);
+    }
+
+    }
+
+        
+        
+    
+
+
+    
+
+
+</script>
+
+  </body>
+</html>
